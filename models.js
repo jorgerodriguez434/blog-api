@@ -1,3 +1,4 @@
+
 const uuid = require('uuid');
 
 // This module provides volatile storage, using a `BlogPost`
