@@ -1,30 +1,8 @@
-//I want to have some expectations from the GET request
-// sooo to make a test, I need a few things:
-//I need a chai library
-
-
-/*
-
-Phase 4: TESTING
-	1. import chai library
-	2. import chai-http
-	3. name 'expect' as variable and use chai's expect reference
-	4. use chaiHttp
-	5. import server.js module, 
-				ex: {app, runServer, closeServer } = require('./server');
-	6. describe('name', callback)
-					callback--> 
-						it('should...', callback)
-						callback --> 
-								ex: expect(double(10)).to.equal(20);
-
-*/
-
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const {app, runServer, closeServer } = require('../server');
+
 
 chai.use(chaiHttp);
 
@@ -38,13 +16,56 @@ before(function() {
 
 describe('Blogs', function() {
 	
-		it('should return status 200', function() {
+		it('should return GET status 200 and be json', function() {
 				return chai
 						.request(app)
       					.get('/blog-posts-jr')
       					.then(function(res) {
 
       						expect(res).to.have.status(200);
+      						expect(res).to.be.json;
+      					
+      					});
+		});
+
+		it('should return POST status 201 and be json', function() {
+				return chai
+						.request(app)
+      					.post('/blog-posts-jr')
+      					.then(function(res) {
+
+      						expect(res).to.have.status(201);
+      						expect(res).to.be.json;
+      					
+      					});
+		});
+
+		it('should return DELETE status 204', function() {
+				return chai
+						.request(app)
+      					.get('/blog-posts-jr')
+      					.then(function(res) {
+
+      						return chai
+      							      .request(app)
+      							      .delete(`/blog-posts-jr/${res.body[0].id}`)
+      							      .then(function (res) {
+
+      							      		expect(res).to.have.status(204);
+
+      							      });
+
+      					
+      					});
+		});
+
+		it('should return PUT status 204', function() {
+				return chai
+						.request(app)
+      					.put('/blog-posts-jr')
+      					.then(function(res) {
+
+      						expect(res).to.have.status(204);
       					
       					});
 		});

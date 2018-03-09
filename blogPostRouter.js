@@ -1,41 +1,12 @@
-/*
-Phase 2:
-
-Overbiew:
-Build 4 endpoints
-Export the routing app 
-I would say that the router serves as a model app for the actual app
- the router is like a test app where you can test the endpoints and the export that test app into the real app
-
-Todo List:
---> 1. Need to import express function 
---> 2. Need to create an app(router) using express() 
---> 3. Need to import BlogPosts model module 
---> 4. Need to build a GET endpoint 
-		--> * need to have an endpoint say, '/' 
-		--> * need to have (req, res) 
-		--> * need a callback
-		* make a GET request (proceed to phase 3, in server.js)
-5. Need to build a POST endpoint 
-6. Need to build a DELETE endpoint 
-7. Need to build a UPDATE endpoint 
-
-*/
 
 const express = require('express');
 const router = express.Router();
 
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
-/*
-coming from:
-		module.exports = {BlogPosts: createBlogPostsModel()};
-		this is being exported as:
-								{key: function}
-*/
 const {BlgPosts} = require('./models'); //this means, that BlgPosts will get all the functions of the model, that is all I know,
 										// has to be the same name as in from the model.js
-
-//just create some database using models.js
 BlgPosts.create('The Forgotten Road','Fiction','Richard Paul Evans');
 BlgPosts.create('Baker\'s secret', 'Fiction','Stephen P. Kiernan');
 BlgPosts.create('Clive Cussler','Fiction','Graham Brown');
@@ -44,14 +15,29 @@ router.get('/', (req, res) => {
 
 	console.log('making a GET request -jr');
 	res.json(BlgPosts.get());
-	res.status(200);
+	res.status(200).end();
+
+});
+
+router.post('/', jsonParser, (req, res) => {
+
+	console.log('making a POST request -jr');
+	const blog = BlgPosts.create(req.body.title, req.body.content, req.body.author);
+	res.status(201).json(blog);
+
+});
+
+router.delete('/:id', (req, res) => {
+
+	console.log('making a DELETE request -jr');
+	const targetBlogID = req.params.id
+	console.log(`deleting blog post: ${targetBlogID}`);
+	BlgPosts.delete(targetBlog);
+	res.status(204).end();
 
 });
 
 /*
-router.post(console.log('posting blog(s)');
-router.delete(console.log('deleting blog');
 router.put(console.log('updating blog'); */
-
 
 module.exports = router;
