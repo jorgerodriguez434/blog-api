@@ -35,7 +35,7 @@ describe('Blogs', function() {
       					.then(function(res) {
 
       						expect(res).to.have.status(201);
-      						expect(res).to.be.json;
+      						//expect(res).to.be.json;
       					
       					});
 		});
@@ -48,12 +48,13 @@ describe('Blogs', function() {
 
       						return chai
       							      .request(app)
-      							      .delete(`/blog-posts-jr/${res.body[0].id}`)
+      							      .delete(`/blog-posts-jr/${res.body.id}`)
       							      .then(function (res) {
 
       							      		expect(res).to.have.status(204);
 
       							      });
+      							  
 
       					
       					});
@@ -62,10 +63,18 @@ describe('Blogs', function() {
 		it('should return PUT status 204', function() {
 				return chai
 						.request(app)
-      					.put('/blog-posts-jr')
+      					.get('/blog-posts-jr')
       					.then(function(res) {
+      					    //update blog
+      					    return chai
+      					    		.request(app)
+      					    		.put(`/blog-posts-jr/${res.body.id}`)
+      					    		//send post
+      								.then(function(res) {
 
-      						expect(res).to.have.status(204);
+      										expect(res).to.have.status(204);
+
+      								});
       					
       					});
 		});

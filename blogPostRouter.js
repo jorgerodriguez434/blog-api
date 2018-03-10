@@ -13,31 +13,36 @@ BlgPosts.create('Clive Cussler','Fiction','Graham Brown');
 
 router.get('/', (req, res) => {
 
-	console.log('making a GET request -jr');
-	res.json(BlgPosts.get());
-	res.status(200).end();
+	/*console.log('making a GET request -jr');
+	res.json(BlgPosts.get());*/
+	res.status(200).json();
 
 });
 
 router.post('/', jsonParser, (req, res) => {
 
-	console.log('making a POST request -jr');
-	const blog = BlgPosts.create(req.body.title, req.body.content, req.body.author);
-	res.status(201).json(blog);
+	/*console.log('making a POST request -jr');
+	const blog = BlgPosts.create(req.body.title, req.body.content, req.body.author);*/
+	res.status(201).json(); // `blog as argument`
 
 });
 
 router.delete('/:id', (req, res) => {
 
-	console.log('making a DELETE request -jr');
+	/*console.log('making a DELETE request -jr');
 	const targetBlogID = req.params.id
 	console.log(`deleting blog post: ${targetBlogID}`);
-	BlgPosts.delete(targetBlog);
+	BlgPosts.delete(targetBlogID);*/
+
 	res.status(204).end();
 
 });
 
-/*
-router.put(console.log('updating blog'); */
+router.put('/:id', (req, res) => {
+
+	res.status(204).end();
+
+});
+
 
 module.exports = router;
