@@ -15,7 +15,7 @@ before(function() {
   });
 
 describe('Blogs', function() {
-	
+
 		it('should return GET status 200 and be json', function() {
 				return chai
 						.request(app)
@@ -24,7 +24,7 @@ describe('Blogs', function() {
 
       						expect(res).to.have.status(200);
       						expect(res).to.be.json;
-      					
+
       					});
 		});
 
@@ -36,7 +36,7 @@ describe('Blogs', function() {
 
       						expect(res).to.have.status(201);
       						//expect(res).to.be.json;
-      					
+
       					});
 		});
 
@@ -54,9 +54,9 @@ describe('Blogs', function() {
       							      		expect(res).to.have.status(204);
 
       							      });
-      							  
 
-      					
+
+
       					});
 		});
 
@@ -75,9 +75,36 @@ describe('Blogs', function() {
       										expect(res).to.have.status(204);
 
       								});
-      					
+
       					});
 		});
 
-}); 
+    it('GET /posts should return all posts in the database and be json', function() {
 
+          expect(res).to.be.json;
+
+		});
+
+
+    it('POST /posts should create new blogs and be json', function() {
+
+        expect(res).to.be.json;
+
+    });
+
+
+    it('PUT /posts/:id should update the title, content, and author fields and be json with 200 status code', function() {
+
+        expect(res).to.be.json;
+        expect(res).to.have.status(200);
+
+    });
+
+    it('DELETE /posts/:id should delete a post with a given id and be json with a 204 status code', function() {
+
+        expect(res).to.be.json;
+        expect(res).to.have.status(204);
+
+    });
+
+});
