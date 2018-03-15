@@ -79,32 +79,4 @@ describe('Blogs', function() {
       					});
 		});
 
-    it('GET /posts should return all posts in the database and be json', function() {
-
-          expect(res).to.be.json;
-
-		});
-
-
-    it('POST /posts should create new blogs and be json', function() {
-
-        expect(res).to.be.json;
-
-    });
-
-
-    it('PUT /posts/:id should update the title, content, and author fields and be json with 200 status code', function() {
-
-        expect(res).to.be.json;
-        expect(res).to.have.status(200);
-
-    });
-
-    it('DELETE /posts/:id should delete a post with a given id and be json with a 204 status code', function() {
-
-        expect(res).to.be.json;
-        expect(res).to.have.status(204);
-
-    });
-
 });
