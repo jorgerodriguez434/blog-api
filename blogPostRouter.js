@@ -10,31 +10,51 @@ const {BlgPosts} = require('./models');
 router.get('/', (req, res) => {
 
 	console.log('making a GET request');
-	//BlgPosts.find();
 
+	BlgPosts
+	.find()
+	.then(blogs => {
+
+	 		res.json(blogs.map(blog => {
+
+	 				return blog.apiRepr();
+
+	 		}));
+
+	 });
 
 });
+
 
 router.get('/:id', (req, res) => {
 
 	console.log('making a GET request by ID');
-	//BlgPosts.findById(req.params.id);
+	const targetBlog = req.params.id;
 
+	BlgPosts
+	.findById(targetBlog)
+	.then(blog => {
+
+	 		res.json( blog.apiRepr() );
+
+	 });
 });
+
 
 router.post('/', jsonParser, (req, res) => {
 
 	console.log('making a POST request');
+	const newBlog = {
 
-	BlgPosts
-	.create({
 
 			title: req.body.title,
       	    content: req.body.content,
      		author: req.body.author
+	}
 
-	})
-	 .then(blog => {
+	BlgPosts
+	.create(newBlog)
+	.then(blog => {
 
 	 		res.json( blog.apiRepr() );
 
@@ -45,18 +65,25 @@ router.post('/', jsonParser, (req, res) => {
 router.delete('/:id', (req, res) => {
 
 	console.log('making a DELETE request');
-	//BlgPosts.findByIdAndRemove(req.params.id)
+	const targetBlogID = req.params.id;
 
-	res.status(204).end();
+	BlgPosts
+	.findByIdAndRemove(targetBlogID)
+	.then( () => {
+
+		res.sendStatus(204);
+
+	});
 
 });
+
+//res.status(204).end();
 
 router.put('/:id', (req, res) => {
 
 	console.log('making a PUT request');
-	res.status(204).end();
-
+	
 });
-
+//res.status(200).end();
 
 module.exports = router;
