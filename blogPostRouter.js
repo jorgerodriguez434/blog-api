@@ -7,14 +7,10 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {BlgPosts} = require('./models'); 
 
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise; 
-
 router.get('/', (req, res) => {
 
 	console.log('making a GET request');
-	const blogs = BlgPosts.find();
-	console.log(blogs);
+	//BlgPosts.find();
 
 
 });
@@ -29,15 +25,20 @@ router.get('/:id', (req, res) => {
 router.post('/', jsonParser, (req, res) => {
 
 	console.log('making a POST request');
-	const blog = BlgPosts.create({
+
+	BlgPosts
+	.create({
 
 			title: req.body.title,
       	    content: req.body.content,
      		author: req.body.author
 
-	});
+	})
+	 .then(blog => {
 
-	res.json(blog);
+	 		res.json( blog.apiRepr() );
+
+	 });
 
 });
 

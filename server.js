@@ -10,7 +10,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise; 
 
 app.use(morgan('common'));
-app.use('/blog-posts-jr', blogPostRouter);           
+app.use('/blog-posts-jr', blogPostRouter);   
+
 let server;
 
 // this function connects to our database, then starts the server
@@ -21,7 +22,7 @@ function runServer(databaseUrl, port = PORT) {
         return reject(err);
       }
       server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
+        console.log(`Your app is listening on port ${port} --March 20th, 2018`);
         resolve();
       })
         .on('error', err => {
