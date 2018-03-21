@@ -15,13 +15,19 @@ router.get('/', (req, res) => {
 	.find()
 	.then(blogs => {
 
-	 		res.json(blogs.map(blog => {
+	 		res.status(200).json(blogs.map(blog => {
 
 	 				return blog.apiRepr();
 
 	 		}));
 
-	 });
+	 })
+	.catch(err => {
+
+      		console.error(err);
+      		res.status(500).json({ error: 'something went terribly wrong' });
+
+    });
 
 });
 
@@ -35,9 +41,16 @@ router.get('/:id', (req, res) => {
 	.findById(targetBlog)
 	.then(blog => {
 
-	 		res.json( blog.apiRepr() );
+	 		res.status(200).json( blog.apiRepr() );
 
-	 });
+	 })
+	.catch(err => {
+
+      		console.error(err);
+      		res.status(500).json({ error: 'something went terribly wrong' });
+
+    });
+
 });
 
 
@@ -56,9 +69,16 @@ router.post('/', jsonParser, (req, res) => {
 	.create(newBlog)
 	.then(blog => {
 
-	 		res.json( blog.apiRepr() );
+	 		res.status(201).json( blog.apiRepr() );
 
-	 });
+	 })
+	 .catch(err => {
+
+      		console.error(err);
+      		res.status(500).json({ error: 'something went terribly wrong' });
+
+    });
+
 
 });
 
@@ -73,7 +93,14 @@ router.delete('/:id', (req, res) => {
 
 		res.sendStatus(204);
 
-	});
+	})
+	.catch(err => {
+
+      		console.error(err);
+      		res.status(500).json({ error: 'something went terribly wrong' });
+
+    });
+
 
 });
 
