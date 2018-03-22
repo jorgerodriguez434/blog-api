@@ -41,6 +41,12 @@ describe('Blogs', function() {
         return chai
                 .request(app)
                 .post('/blog-posts-jr')
+                .send({
+                  title: 'foo',
+                  author: 'baz',
+                  content: 'fuzz'
+
+                })
                 .then(function(res) {
 
                   expect(res).to.have.status(201);
@@ -48,28 +54,23 @@ describe('Blogs', function() {
 
                 });
     });
-    /*
+    
 
     it('should return DELETE status 204', function() {
 
-        return chai
-                .request(app)
-                .get('/blog-posts-jr')
-                .then(function(res) {
-
                   return chai
                           .request(app)
-                          .delete(`/blog-posts-jr/${res.body.id}`)
+                          .delete(`/blog-posts-jr/5aafd59e57de26c64bcf9648`)
                           .then(function (res) {
 
                               expect(res).to.have.status(204);
 
                           });
 
-                });
     });
 
-    it('should return PUT status 204', function() {
+
+    it('should return PUT status 200', function() {
 
         return chai
                 .request(app)
@@ -82,11 +83,11 @@ describe('Blogs', function() {
                         //send post
                       .then(function(res) {
 
-                          expect(res).to.have.status(204);
+                          expect(res).to.have.status(200);
 
                       });
 
                 });
-    }); */
+    }); 
 
 });

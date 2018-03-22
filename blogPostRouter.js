@@ -109,8 +109,8 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
 
 	console.log('making a PUT request');
+	res.sendStatus(200); //res.status(200).end();
 	
 });
-//res.status(200).end();
 
 module.exports = router;
